@@ -1,0 +1,27 @@
+.nav {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background-color: rgb(241, 66, 66);
+	height: 90px;
+	justify-content: space-around;
+}
+
+img {
+	height: 90px;
+}
+
+.searchType > a {
+	color: black;
+	text-decoration: none;
+}
+
+.imageDiv {
+	width: fit-content;
+}
+
+.searchType {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
