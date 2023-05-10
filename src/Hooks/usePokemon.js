@@ -36,7 +36,7 @@ export function usePokemon() {
 	} = useContext(pokemonContext);
 
 	useEffect(() => {
-		fetch('pokeDexDB.json')
+		fetch('pokeDexDB2.json')
 			.then((res) => res.json())
 			.then((data) => {
 				setPokemonNTU(data);
