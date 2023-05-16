@@ -34,13 +34,23 @@ export function usePokemon() {
 		pokemonNTU,
 		setPokemonNTU,
 	} = useContext(pokemonContext);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
-		fetch('pokeDexDB2.json')
-			.then((res) => res.json())
+		fetch('https://raw.githubusercontent.com/MrchinFTW/pokedex/main/public/pokeDexDB2.json')
+			.then((res) => {
+				setLoading(true);
+				return res.json();
+			})
 			.then((data) => {
-				setPokemonNTU(data);
+				setLoading(false);
 				setPokemon(data);
+				setPokemonNTU(data);
+			})
+			.catch((err) => {
+				setError(true);
+				console.log(`error while fetching pokemon data. the error is: ${err}`);
 			});
 		// fetchAllPokemon()
 		// 	.then((pokemon) => {
@@ -152,7 +162,6 @@ export function usePokemon() {
 		}
 		console.log(pokeTempFoundArr);
 		console.log(pokeRetArr);
-		//TODO: check this set section...
 
 		if (pokeTempFoundArr.length === 0 && pokeRetArr.length === 0) {
 			setPokemon(pokemonNTU);
@@ -163,54 +172,34 @@ export function usePokemon() {
 			setPokemon(pokeRetArr);
 		}
 	};
-
+	//TODO: get a -1 and type will delete the type from seaching array.
 	const findPokemon = (pokemonObj) => {
 		console.log('find pokemon running');
 		const { type, typeName } = pokemonObj;
-		if (type === 'gen') {
-			//gen
-			const exist = pokemonSearchingArr.findIndex(
-				(obj) => obj.type === type && obj.typeName === typeName
-			);
-			console.log(exist);
-			if (exist === -1) {
-				const searchingArr = sortAndAdd(pokemonObj, pokemonSearchingArr);
-				setPokemonSearchingArr(searchingArr);
-				searchPokemon(pokemonObj, searchingArr);
+
+		const exist = pokemonSearchingArr.find((obj) => obj.type === type);
+		if (!exist) {
+			const searchingArr = sortAndAdd(pokemonObj, pokemonSearchingArr);
+			setPokemonSearchingArr(searchingArr);
+			searchPokemon(pokemonObj, searchingArr);
+		} else {
+			const isSpesificTypeExist = pokemonSearchingArr.findIndex((obj) => obj.typeName === typeName);
+			console.log(isSpesificTypeExist);
+			if (isSpesificTypeExist === -1) {
+				const indexToRemove = pokemonSearchingArr.findIndex((obj) => obj.type === type);
+				const newPokeSearch = [...pokemonSearchingArr];
+				newPokeSearch.splice(indexToRemove, 1, pokemonObj);
+				setPokemonSearchingArr(newPokeSearch);
+				searchPokemon(pokemonObj, newPokeSearch);
 			} else {
 				console.log('delete from array');
-				const newSearchingArr = deleteFromArr(pokemonSearchingArr, exist);
+				const newSearchingArr = deleteFromArr(pokemonSearchingArr, isSpesificTypeExist);
 				setPokemonSearchingArr(newSearchingArr);
 				searchPokemon(pokemonObj, newSearchingArr);
 			}
-		} else {
-			//color and type.
-			const exist = pokemonSearchingArr.find((obj) => obj.type === type);
-			if (!exist) {
-				const searchingArr = sortAndAdd(pokemonObj, pokemonSearchingArr);
-				setPokemonSearchingArr(searchingArr);
-				searchPokemon(pokemonObj, searchingArr);
-			} else {
-				const isSpesificTypeExist = pokemonSearchingArr.findIndex(
-					(obj) => obj.typeName === typeName
-				);
-				console.log(isSpesificTypeExist);
-				if (isSpesificTypeExist === -1) {
-					const indexToRemove = pokemonSearchingArr.findIndex((obj) => obj.type === type);
-					const newPokeSearch = [...pokemonSearchingArr];
-					newPokeSearch.splice(indexToRemove, 1, pokemonObj);
-					setPokemonSearchingArr(newPokeSearch);
-					searchPokemon(pokemonObj, newPokeSearch);
-				} else {
-					console.log('delete from array');
-					const newSearchingArr = deleteFromArr(pokemonSearchingArr, isSpesificTypeExist);
-					setPokemonSearchingArr(newSearchingArr);
-					searchPokemon(pokemonObj, newSearchingArr);
-				}
-			}
 		}
 	};
-	return { pokemon, findPokemon };
+	return { pokemon, findPokemon, loading, error };
 }
 
 async function massiveFetch(urls) {

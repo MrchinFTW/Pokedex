@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import ColorsCss from './css/Colors.module.css';
+import SearchCss from './css/Search.module.css';
+
 import { usePokemon } from '../../Hooks/usePokemon';
 
 async function getColors() {
@@ -15,14 +17,17 @@ async function getColors() {
 	return pokeColor;
 }
 
-const Color = () => {
+const Color = ({ active }) => {
 	const { findPokemon } = usePokemon();
 	const [colors, setColors] = useState([]);
 	useEffect(() => {
 		getColors().then((data) => setColors(data));
 	}, []);
+
+	const mainDivClass = active ? `${SearchCss.color} ${SearchCss.hidden}` : `${SearchCss.color}`;
+
 	return (
-		<div>
+		<div className={mainDivClass}>
 			<ul>
 				{colors.map((color, index) => {
 					let classToReturn = ColorsCss[color.name];

@@ -1,11 +1,8 @@
 .SearchNav {
-	width: 100%;
 	height: 35px;
-	background-color: rgb(218, 144, 110);
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-	/* position: sticky; */
 	top: 45px;
 }

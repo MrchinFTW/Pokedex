@@ -11,3 +11,11 @@ ul > li {
 	margin: 10px;
 	padding: 5px;
 }
+
+.hidden {
+	display: none;
+}
+
+.color {
+	color: coral;
+}

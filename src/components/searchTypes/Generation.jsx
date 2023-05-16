@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import GenCss from './css/Gen.module.css';
+import SearchCss from './css/Search.module.css';
 import { usePokemon } from '../../Hooks/usePokemon';
 
 async function fetchGenerationById(index) {
@@ -23,15 +23,16 @@ async function pokemonGenerations() {
 	return genArr;
 }
 
-const Generation = () => {
+const Generation = ({ active }) => {
 	const [genArr, setGenArr] = useState([]);
 	const { findPokemon } = usePokemon();
 	useEffect(() => {
 		pokemonGenerations().then((data) => setGenArr(data));
 	}, []);
+	const mainDivClass = active ? `${SearchCss.color} ${SearchCss.hidden}` : `${SearchCss.color}`;
 
 	return (
-		<div className={GenCss.gen}>
+		<div className={mainDivClass}>
 			<ul>
 				{genArr.map((gen, index) => {
 					return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import GenCss from './css/Gen.module.css';
+import SearchCss from './css/Search.module.css';
 import { usePokemon } from '../../Hooks/usePokemon';
 
 async function getTypes() {
@@ -15,7 +15,7 @@ async function getTypes() {
 	return pokeTypes;
 }
 
-const Type = () => {
+const Type = ({ active }) => {
 	const [pokeTypesFetch, setPokeTypesFetch] = useState([]);
 	const { findPokemon } = usePokemon();
 	useEffect(() => {
@@ -24,8 +24,10 @@ const Type = () => {
 		});
 	}, []);
 
+	const mainDivClass = active ? `${SearchCss.color} ${SearchCss.hidden}` : `${SearchCss.color}`;
+
 	return (
-		<div className={GenCss.SearchTypeWrapper}>
+		<div className={mainDivClass}>
 			<ul>
 				{pokeTypesFetch.map((type, index) => {
 					if (type.pokemon.length > 1) {
