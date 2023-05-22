@@ -83,7 +83,8 @@ export function usePokemon() {
 		return searchingArr;
 	};
 
-	const deleteFromArr = (searchingArr, index) => {
+	const deleteFromArr = (searchingArr, type) => {
+		const index = searchingArr.findIndex((obj) => obj.type === type);
 		searchingArr.splice(index, 1);
 		return searchingArr;
 	};
@@ -184,8 +185,7 @@ export function usePokemon() {
 			searchPokemon(pokemonObj, searchingArr);
 		} else {
 			const isSpesificTypeExist = pokemonSearchingArr.findIndex((obj) => obj.typeName === typeName);
-			console.log(isSpesificTypeExist);
-			if (isSpesificTypeExist === -1) {
+			if (isSpesificTypeExist === -1 && typeName !== -1) {
 				const indexToRemove = pokemonSearchingArr.findIndex((obj) => obj.type === type);
 				const newPokeSearch = [...pokemonSearchingArr];
 				newPokeSearch.splice(indexToRemove, 1, pokemonObj);
@@ -193,7 +193,7 @@ export function usePokemon() {
 				searchPokemon(pokemonObj, newPokeSearch);
 			} else {
 				console.log('delete from array');
-				const newSearchingArr = deleteFromArr(pokemonSearchingArr, isSpesificTypeExist);
+				const newSearchingArr = deleteFromArr(pokemonSearchingArr, type);
 				setPokemonSearchingArr(newSearchingArr);
 				searchPokemon(pokemonObj, newSearchingArr);
 			}

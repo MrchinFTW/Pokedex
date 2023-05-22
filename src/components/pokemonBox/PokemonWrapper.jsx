@@ -1,7 +1,6 @@
 import wrapper from './Pokemon.module.css';
 import PokemonLayout from './PokemonLayout';
 import { usePokemon } from '../../Hooks/usePokemon';
-import SearchBar from '../SearchBar';
 import React from 'react';
 
 const PokemonWrapper = () => {
