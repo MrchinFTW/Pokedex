@@ -12,6 +12,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<PokemonWrapper />} />
 				<Route path='/pokemon/:id' element={<PokemonInfo />} />
+				{/* <Route path='/type/:id' element={<PokemonInfo />} /> TODO:add a type info page. */}
 			</Routes>
 		</div>
 	);

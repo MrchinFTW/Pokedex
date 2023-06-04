@@ -7,6 +7,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+//material ui button imports
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 async function getGenerations() {
 	let genArr = [];
@@ -208,6 +211,13 @@ const Nav = () => {
 					})}
 				</Select>
 			</FormControl>
+
+			{/* TODO: add a clear button */}
+			{/* <Stack direction='row'>
+				<Button color='error' variant='outlined'>
+					Outlined
+				</Button>
+			</Stack> */}
 		</div>
 	);
 };

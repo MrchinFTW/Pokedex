@@ -1,0 +1,80 @@
+hr {
+	border: none;
+	border-top: rgba(214, 214, 214, 0.918) 1px solid;
+	width: 90%;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+tr {
+	border-bottom: 1px rgb(158, 158, 158) solid;
+	display: flex;
+	align-items: center;
+	padding: 9px 0;
+}
+
+td {
+	font-size: 14px;
+	padding-right: 15px;
+	text-align: right;
+	width: 40%;
+	font-weight: 300;
+}
+
+th {
+	padding-left: 15px;
+	text-align: left;
+	font-weight: normal;
+}
+
+body {
+	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}
+
+.centerClass {
+	display: flex;
+	justify-content: center;
+	margin: 10px 0;
+}
+
+.nameDiv {
+	font-size: 50px;
+	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+	text-transform: capitalize;
+}
+
+.firstInfoSection {
+	margin: 0 50px;
+	display: flex;
+	flex-direction: row;
+}
+
+.pokeGeneralData {
+	width: 50%;
+	padding: 0 15px;
+}
+
+.imgDivWrapper {
+	width: 50%;
+}
+.imgDiv {
+	padding: 0 15px;
+	height: 450px;
+}
+
+.firstInfoWrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.dexNum {
+	display: flex;
+	flex-direction: row;
+}
+
+.pokedexName {
+	padding-left: 10px;
+}

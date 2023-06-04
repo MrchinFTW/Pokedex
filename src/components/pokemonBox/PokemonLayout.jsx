@@ -6,9 +6,6 @@ const PokemonLayout = ({ pk }) => {
 		console.log(pk.types[0].type.name);
 	}
 
-	//TODO: set a "setColor" function that return the correct css class for the givin color.
-	//TODO: add image and shape it.
-
 	return (
 		<div className={css.pokeCell}>
 			<div># {pk.id}</div>
