@@ -18,9 +18,9 @@ tr {
 
 td {
 	font-size: 14px;
-	padding-right: 15px;
+	padding-right: 5px;
 	text-align: right;
-	width: 40%;
+	width: 30%;
 	font-weight: 300;
 }
 
@@ -50,11 +50,23 @@ body {
 	margin: 0 50px;
 	display: flex;
 	flex-direction: row;
+
+	flex-wrap: wrap;
+	justify-content: flex-start;
 }
 
 .pokeGeneralData {
-	width: 50%;
+	margin: 0 30px;
 	padding: 0 15px;
+	width: -webkit-fill-available;
+}
+
+.pokeGeneralWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 50%;
+	min-width: 410px;
 }
 
 .imgDivWrapper {
@@ -73,8 +85,38 @@ body {
 .dexNum {
 	display: flex;
 	flex-direction: row;
+	width: max-content;
 }
 
 .pokedexName {
 	padding-left: 10px;
+}
+
+.statWrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.statNum {
+	padding-right: 10px;
+	width: 14px;
+}
+
+.statBar {
+	height: 12px;
+	border-radius: 10px;
+	border: 1px black solid;
+}
+
+.small {
+	background-color: brown;
+}
+
+.middle {
+	background-color: darkorange;
+}
+
+.big {
+	background-color: chartreuse;
 }
