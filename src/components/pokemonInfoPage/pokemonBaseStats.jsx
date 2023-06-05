@@ -11,7 +11,7 @@ const PokeomnBaseStats = ({ pokemonFullInfoObj }) => {
 		<div className={infoCss.pokeGeneralWrapper}>
 			<h2> pokemon Training stats</h2>
 			<table className={infoCss.pokeGeneralData}>
-				{pokemonFullInfoObj.stats.map((stat) => {
+				{pokemonFullInfoObj.stats.map((stat, index) => {
 					let colorClass;
 					const statPresent = (stat.base_stat * 100) / maxNum;
 
@@ -33,7 +33,7 @@ const PokeomnBaseStats = ({ pokemonFullInfoObj }) => {
 					}
 
 					return (
-						<tr>
+						<tr key={index}>
 							<td className={infoCss.baseStatName}>{stat.stat.name}: </td>
 							<th className={infoCss.statNum}>{stat.base_stat}</th>
 							<th style={{ width: '100%' }}>

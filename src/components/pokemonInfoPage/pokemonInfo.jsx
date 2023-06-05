@@ -6,8 +6,9 @@ import colorCss from '../pokemonBox/Pokemon.module.css';
 import PokemonData from './pokemonData';
 import PokeomnTraining from './pokemonTraining';
 import PokeomnBaseStats from './pokemonBaseStats';
+import NavPrevNextPokemon from './NavPrevNextPokemon';
 
-const PokemonInfo = ({ pk }) => {
+const PokemonInfo = () => {
 	const { pokemon, loading, error } = usePokemon();
 	const { id } = useParams();
 	const pokemonFullInfoObj = pokemon.find((pk) => pk.name === id);
@@ -19,6 +20,7 @@ const PokemonInfo = ({ pk }) => {
 
 	return (
 		<>
+			<NavPrevNextPokemon currentPokemon={pokemonFullInfoObj.name} pokemonList={pokemon} />
 			<div className={infoCss.centerClass}>
 				<div className={infoCss.nameDiv}>{pokemonFullInfoObj.name}</div>
 			</div>

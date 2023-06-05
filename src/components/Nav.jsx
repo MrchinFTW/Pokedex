@@ -7,9 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-//material ui button imports
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 async function getGenerations() {
 	let genArr = [];
@@ -143,9 +141,11 @@ const Nav = () => {
 
 	return (
 		<div className={navCss.nav}>
-			<div className={navCss.imageDiv}>
-				<img src='pokemon-logo.png' alt='asd' />
-			</div>
+			<Link className={navCss.imageDiv} to={'/'}>
+				<img src='/pokemon-logo.png' alt='asd' />
+			</Link>
+
+			{/* material ui select for gen selet */}
 
 			<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
 				<InputLabel id='demo-simple-select-filled-label'>Generation</InputLabel>
@@ -162,11 +162,17 @@ const Nav = () => {
 					<MenuItem value={-1}>
 						<em>All</em>
 					</MenuItem>
-					{genArr.map((gen) => {
-						return <MenuItem value={gen}>{gen}</MenuItem>;
+					{genArr.map((gen, index) => {
+						return (
+							<MenuItem value={gen} key={index}>
+								{gen}
+							</MenuItem>
+						);
 					})}
 				</Select>
 			</FormControl>
+
+			{/* material ui select for type selet */}
 
 			<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
 				<InputLabel id='demo-simple-select-filled-label'>Type</InputLabel>
@@ -183,8 +189,12 @@ const Nav = () => {
 					<MenuItem value={-1}>
 						<em>All</em>
 					</MenuItem>
-					{typeArr.map((type) => {
-						return <MenuItem value={type.name}>{type.name}</MenuItem>;
+					{typeArr.map((type, index) => {
+						return (
+							<MenuItem value={type.name} key={index}>
+								{type.name}
+							</MenuItem>
+						);
 					})}
 				</Select>
 			</FormControl>
@@ -206,18 +216,17 @@ const Nav = () => {
 					<MenuItem value={-1}>
 						<em>All</em>
 					</MenuItem>
-					{colorsArr.map((color) => {
-						return <MenuItem value={color.name}>{color.name}</MenuItem>;
+					{colorsArr.map((color, index) => {
+						return (
+							<MenuItem value={color.name} key={index}>
+								{color.name}
+							</MenuItem>
+						);
 					})}
 				</Select>
 			</FormControl>
 
 			{/* TODO: add a clear button */}
-			{/* <Stack direction='row'>
-				<Button color='error' variant='outlined'>
-					Outlined
-				</Button>
-			</Stack> */}
 		</div>
 	);
 };

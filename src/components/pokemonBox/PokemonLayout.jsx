@@ -2,14 +2,10 @@ import css from './Pokemon.module.css';
 import { Link } from 'react-router-dom';
 import React from 'react';
 const PokemonLayout = ({ pk }) => {
-	if (pk.id === 1) {
-		console.log(pk.types[0].type.name);
-	}
-
 	return (
 		<div className={css.pokeCell}>
 			<div># {pk.id}</div>
-			<Link to={`/pokemon/${pk.name}`}>
+			<Link to={`../pokemon/${pk.name}`}>
 				<img src={pk.sprites.front_default} alt='' />
 			</Link>
 			<div>{pk.name}</div>
