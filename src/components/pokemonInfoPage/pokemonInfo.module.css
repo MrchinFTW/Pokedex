@@ -129,3 +129,37 @@ body {
 	border-radius: 10px;
 	background-color: #6495ed3b;
 }
+
+.pokeNextBar {
+	display: flex;
+	justify-content: flex-end;
+	margin: 20px;
+	padding: 20px 10px;
+	border-radius: 10px;
+	background-color: #6495ed3b;
+}
+
+.evoChartWrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.evolutionChainBox {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.evoTriggerWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.evoTriggerDetail {
+	width: 104px;
+	font-size: 14px;
+	color: #808080cf;
+	text-align: center;
+}

@@ -26,9 +26,9 @@ const PokemonData = ({ pokemonFullInfoObj }) => {
 					<td>Types:</td>
 					<th>
 						<div className={infoCss.dexNum}>
-							{pokemonFullInfoObj.types.map((type) => {
+							{pokemonFullInfoObj.types.map((type, index) => {
 								return (
-									<div className={`${colorCss.pokeType} ${colorCss[type.type.name]}`}>
+									<div key={index} className={`${colorCss.pokeType} ${colorCss[type.type.name]}`}>
 										{type.type.name}
 									</div>
 								);
@@ -55,7 +55,8 @@ const PokemonData = ({ pokemonFullInfoObj }) => {
 				<tr>
 					<td>Local pokedex number:</td>
 					<th>
-						{pokemonFullInfoObj.pokedex_numbers.map((pokedex) => {
+						{/* TODO: cancel duplicate numbers from the pokedex. */}
+						{pokemonFullInfoObj.pokedex_numbers.map((pokedex, index) => {
 							const dexName = pokedex.pokedex.name;
 							const dexNameNoMdlScor = dexName.replace(/-/g, ' ');
 							const dexNum = pokedex.entry_number;
@@ -70,7 +71,7 @@ const PokemonData = ({ pokemonFullInfoObj }) => {
 								dexNumWithZero = `${dexNum}`;
 							}
 							return (
-								<div className={infoCss.dexNum}>
+								<div key={index} className={infoCss.dexNum}>
 									{<div># {dexNumWithZero} </div>}
 									{<div className={infoCss.pokedexName}> {dexNameNoMdlScor}</div>}
 								</div>

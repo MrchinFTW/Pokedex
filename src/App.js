@@ -4,6 +4,8 @@ import PokemonWrapper from './components/pokemonBox/PokemonWrapper';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PokemonInfo from './components/pokemonInfoPage/pokemonInfo';
+import ErrorPage from './components/ErrorPage';
+
 function App() {
 	return (
 		<div className={appCss.app}>
@@ -11,9 +13,9 @@ function App() {
 
 			<Routes>
 				<Route path='/' element={<PokemonWrapper />} />
-				<Route path='/pokemon'>
-					<Route path=':id' element={<PokemonInfo />} />
-				</Route>
+				<Route path='/pokemon/:id' element={<PokemonInfo />} />
+
+				{/* <Route path='*' element={<ErrorPage />} /> TODO: add error page when pokemon not found*/}
 				{/* <Route path='/type/:id' element={<PokemonInfo />} /> TODO:add a type info page. */}
 			</Routes>
 		</div>

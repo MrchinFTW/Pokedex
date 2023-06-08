@@ -22,13 +22,18 @@ const PokeomnTraining = ({ pokemonFullInfoObj }) => {
 				</tr>
 
 				<tr>
+					<td>Baby pokemon: </td>
+					{pokemonFullInfoObj.is_baby ? <th>Yes</th> : <th>No</th>}
+				</tr>
+
+				<tr>
 					<td>Legendary pokemon: </td>
-					{pokemonFullInfoObj.is_legendery ? <th>yes</th> : <th>no</th>}
+					{pokemonFullInfoObj.is_legendery ? <th>Yes</th> : <th>No</th>}
 				</tr>
 
 				<tr>
 					<td>Mythic pokemon: </td>
-					{pokemonFullInfoObj.is_mythical ? <th>yes</th> : <th>no</th>}
+					{pokemonFullInfoObj.is_mythical ? <th>Yes</th> : <th>No</th>}
 				</tr>
 			</table>
 		</div>
