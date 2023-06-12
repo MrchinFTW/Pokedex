@@ -1,13 +1,15 @@
-import navCss from './Nav.module.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { usePokemon } from '../Hooks/usePokemon';
-//meterial ui imports
+import searchCss from './SearchBarCss.module.css';
+//meterial ui imports select item
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { Link } from 'react-router-dom';
+//meterial ui imports text field
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 async function getGenerations() {
 	let genArr = [];
@@ -58,15 +60,14 @@ async function getColors() {
 	return pokeColor;
 }
 
-const Nav = () => {
+const SearchBar = () => {
 	const [genArr, setGenArr] = useState([]);
 	const [typeArr, setTypeArr] = useState([]);
 	const [colorsArr, setColorsArr] = useState([]);
 	const [selectedColor, setSelectedColor] = useState(-1);
 	const [selectedType, setSelectedType] = useState(-1);
 	const [selectedGen, setSelectedGen] = useState(-1);
-
-	const { findPokemon } = usePokemon();
+	const { findPokemon, findPokemonByName } = usePokemon();
 
 	const changeHandler = async (e) => {
 		let index;
@@ -117,6 +118,11 @@ const Nav = () => {
 					});
 				}
 				break;
+
+			case 'text':
+				findPokemonByName(e.target.value);
+				break;
+
 			default:
 				console.log('no need for default');
 				break;
@@ -143,11 +149,7 @@ const Nav = () => {
 	}, []);
 
 	return (
-		<div className={navCss.nav}>
-			<Link className={navCss.imageDiv} to={'/'}>
-				<img src='/pokemon-logo.png' alt='asd' />
-			</Link>
-
+		<div className={searchCss.searchBar}>
 			{/* material ui select for gen selet */}
 
 			<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
@@ -229,9 +231,29 @@ const Nav = () => {
 				</Select>
 			</FormControl>
 
+			<Box
+				component='form'
+				sx={{
+					'& > :not(style)': { m: 1, width: '25ch' },
+				}}
+				autoComplete='off'
+				onSubmit={(e) => {
+					e.preventDefault();
+				}}
+			>
+				<TextField
+					id='filled-basic'
+					label='Enter Name'
+					variant='filled'
+					name='text'
+					onChange={(e) => {
+						changeHandler(e);
+					}}
+				/>
+			</Box>
 			{/* TODO: add a clear button */}
 		</div>
 	);
 };
 
-export default Nav;
+export default SearchBar;

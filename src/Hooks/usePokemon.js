@@ -6,7 +6,6 @@ const pokemonContext = createContext();
 export function PokemonContaxtProvider({ children }) {
 	const [pokemon, setPokemon] = useState([]);
 	const [pokemonNTU, setPokemonNTU] = useState([]);
-
 	const [pokemonSearchingArr, setPokemonSearchingArr] = useState([]);
 
 	return (
@@ -89,7 +88,7 @@ export function usePokemon() {
 		return searchingArr;
 	};
 
-	const searchPokemon = (pokemonObj, searchingArr) => {
+	const searchPokemon = (searchingArr) => {
 		console.log('searching method running');
 
 		let pokeTempFoundArr = [];
@@ -173,7 +172,7 @@ export function usePokemon() {
 			setPokemon(pokeRetArr);
 		}
 	};
-	//TODO: get a -1 and type will delete the type from seaching array.
+
 	const findPokemon = (pokemonObj) => {
 		console.log('find pokemon running');
 		const { type, typeName } = pokemonObj;
@@ -182,7 +181,7 @@ export function usePokemon() {
 		if (!exist) {
 			const searchingArr = sortAndAdd(pokemonObj, pokemonSearchingArr);
 			setPokemonSearchingArr(searchingArr);
-			searchPokemon(pokemonObj, searchingArr);
+			searchPokemon(searchingArr);
 		} else {
 			const isSpesificTypeExist = pokemonSearchingArr.findIndex((obj) => obj.typeName === typeName);
 			if (isSpesificTypeExist === -1 && typeName !== -1) {
@@ -190,16 +189,36 @@ export function usePokemon() {
 				const newPokeSearch = [...pokemonSearchingArr];
 				newPokeSearch.splice(indexToRemove, 1, pokemonObj);
 				setPokemonSearchingArr(newPokeSearch);
-				searchPokemon(pokemonObj, newPokeSearch);
+				searchPokemon(newPokeSearch);
 			} else {
 				console.log('delete from array');
 				const newSearchingArr = deleteFromArr(pokemonSearchingArr, type);
 				setPokemonSearchingArr(newSearchingArr);
-				searchPokemon(pokemonObj, newSearchingArr);
+				searchPokemon(newSearchingArr);
 			}
 		}
 	};
-	return { pokemon, findPokemon, loading, error };
+
+	const findPokemonByName = (text) => {
+		text = text.toLowerCase();
+		console.log(text);
+		if (pokemonSearchingArr.length >= 1) {
+			console.log('with searching array');
+			searchPokemon(pokemonSearchingArr);
+			let x = pokemon.filter((pk) => pk.name.includes(text));
+			console.log(x);
+
+			setPokemon(x);
+		} else {
+			console.log('without searching array');
+
+			let x = pokemonNTU.filter((pk) => pk.name.includes(text));
+			console.log(x);
+			setPokemon(x);
+		}
+	};
+
+	return { pokemon, loading, error, findPokemon, findPokemonByName };
 }
 
 async function massiveFetch(urls) {

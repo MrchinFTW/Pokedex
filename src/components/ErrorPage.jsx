@@ -1,7 +1,8 @@
 import React from 'react';
-
+import PokemonWrapper from './pokemonBox/PokemonWrapper';
+import SearchBar from './SearchBar';
 const ErrorPage = () => {
-	return <div>horror page!</div>;
+	return <div></div>;
 };
 
 export default ErrorPage;

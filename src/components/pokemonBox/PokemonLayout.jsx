@@ -5,7 +5,7 @@ const PokemonLayout = ({ pk }) => {
 	return (
 		<div className={css.pokeCell}>
 			<div># {pk.id}</div>
-			<Link to={`../pokemon/${pk.name}`}>
+			<Link to={`/pokemon/${pk.name}`}>
 				<img src={pk.sprites.front_default} alt='' />
 			</Link>
 			<div>{pk.name}</div>
