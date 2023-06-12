@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import infoCss from './pokemonInfo.module.css';
 import { useEvolutionChart } from '../../Hooks/useEvolutionChart';
 import PokemonLayout from '../pokemonBox/PokemonLayout';
@@ -27,7 +27,6 @@ const EvolutionChart = ({ pokemonList, currentPokemon }) => {
 			trigger = obj.evolves_to[0].evolution_details[0].trigger.name;
 			switch (trigger) {
 				case 'level-up':
-					console.log('level-up');
 					temp = obj.evolves_to[0].evolution_details[0].min_level;
 					if (temp === null) {
 						triggerDetails = 'Leveling';
@@ -36,30 +35,25 @@ const EvolutionChart = ({ pokemonList, currentPokemon }) => {
 					}
 					break;
 				case 'trade':
-					console.log('trade');
 					triggerDetails = 'Trade';
 					break;
 				case 'use-item':
-					console.log('use-item');
 					temp = obj.evolves_to[0].evolution_details[0].item.name;
 					temp = temp.replace(/-/g, ' ');
 					triggerDetails = `use ${temp}`;
 					break;
 
 				case 'three-critical-hits':
-					console.log('three-critical-hits');
 					triggerDetails = `3 crits in one battle`;
 					break;
 
 				case 'agile-style-move':
-					console.log('agile-style-move');
 					temp = obj.evolves_to[0].evolution_details[0].known_move.name;
 					temp = temp.replace(/-/g, ' ');
 					temp = temp.charAt(0).toUpperCase() + temp.slice(1);
 					triggerDetails = `attack using ${temp} in agile style`;
 					break;
 				case 'strong-style-move':
-					console.log('strong-style-move');
 					temp = obj.evolves_to[0].evolution_details[0].known_move.name;
 					temp = temp.replace(/-/g, ' ');
 					temp = temp.charAt(0).toUpperCase() + temp.slice(1);
@@ -71,7 +65,6 @@ const EvolutionChart = ({ pokemonList, currentPokemon }) => {
 					triggerDetails = trigger;
 					break;
 			}
-			console.log(obj.evolves_to[0].evolution_details[0]);
 		}
 		return (
 			<div className={infoCss.evoChartWrapper}>

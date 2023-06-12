@@ -7,6 +7,7 @@ import PokeomnTraining from './pokemonTraining';
 import PokeomnBaseStats from './pokemonBaseStats';
 import NavPrevNextPokemon from './NavPrevNextPokemon';
 import EvolutionChart from './EvolutionChart';
+import DmgChart from './DmgChart';
 
 const PokemonInfo = () => {
 	const { pokemon, loading, error } = usePokemon();
@@ -40,7 +41,11 @@ const PokemonInfo = () => {
 				<PokeomnTraining pokemonFullInfoObj={pokemonFullInfoObj} />
 				<PokeomnBaseStats pokemonFullInfoObj={pokemonFullInfoObj} />
 			</section>
-			<EvolutionChart pokemonList={pokemon} currentPokemon={pokemonFullInfoObj} />
+			<div className={infoCss.evolutionChartSection}>
+				<h1>Evolution Chart</h1>
+				<EvolutionChart pokemonList={pokemon} currentPokemon={pokemonFullInfoObj} />
+			</div>
+			<DmgChart typesList={pokemonFullInfoObj.types} />
 		</>
 	);
 };

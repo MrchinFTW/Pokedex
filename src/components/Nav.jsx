@@ -117,6 +117,9 @@ const Nav = () => {
 					});
 				}
 				break;
+			default:
+				console.log('no need for default');
+				break;
 		}
 	};
 

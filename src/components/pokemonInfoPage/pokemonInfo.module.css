@@ -12,6 +12,7 @@ table {
 tr {
 	border-bottom: 1px rgb(158, 158, 158) solid;
 	display: flex;
+	min-height: 37px;
 	align-items: center;
 	padding: 9px 0;
 }
@@ -47,10 +48,9 @@ body {
 }
 
 .firstInfoSection {
-	margin: 0 50px;
+	margin: 15px 50px;
 	display: flex;
 	flex-direction: row;
-
 	flex-wrap: wrap;
 	justify-content: flex-start;
 }
@@ -64,8 +64,6 @@ body {
 .pokeGeneralWrapper {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	width: 50%;
 	min-width: 410px;
 }
 
@@ -124,7 +122,7 @@ body {
 .pokeNextPrevBar {
 	display: flex;
 	justify-content: space-between;
-	margin: 20px;
+	margin: 15px 50px;
 	padding: 20px 10px;
 	border-radius: 10px;
 	background-color: #6495ed3b;
@@ -133,12 +131,15 @@ body {
 .pokeNextBar {
 	display: flex;
 	justify-content: flex-end;
-	margin: 20px;
+	margin: 15px 50px;
 	padding: 20px 10px;
 	border-radius: 10px;
 	background-color: #6495ed3b;
 }
 
+.evolutionChartSection {
+	margin: 15px 50px;
+}
 .evoChartWrapper {
 	display: flex;
 	justify-content: center;
@@ -162,4 +163,72 @@ body {
 	font-size: 14px;
 	color: #808080cf;
 	text-align: center;
+}
+.dmgChartSection {
+	margin: 15px 50px;
+}
+.chartWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.dmgToWrapper {
+	display: flex;
+	flex-direction: column;
+	margin: 20px;
+}
+
+.dmgChart {
+	display: flex;
+	justify-content: center;
+}
+
+.dmgType {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1px;
+}
+
+.dmgName {
+	padding: 6px;
+	border: 1px solid #00000054;
+	border-radius: 7px;
+	font-weight: 500;
+	color: white;
+	width: 30px;
+	text-align: center;
+	text-shadow: 1px 1px 4px black;
+}
+
+.dmgNumber {
+	padding: 6px;
+	border: 1px solid #00000054;
+	border-radius: 7px;
+	font-weight: 400;
+	width: 30px;
+	text-align: center;
+}
+
+@media (max-width: 980px) {
+	.firstInfoSection {
+		margin: 15px 50px;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.pokeGeneralWrapper {
+		display: flex;
+		flex-direction: column;
+		min-width: 410px;
+		width: 100%;
+	}
+
+	.dmgChart {
+		display: grid;
+		grid-template-columns: repeat(9, 45px);
+		justify-content: center;
+	}
 }

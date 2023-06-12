@@ -2,14 +2,14 @@ import React from 'react';
 import infoCss from './pokemonInfo.module.css';
 
 const PokeomnBaseStats = ({ pokemonFullInfoObj }) => {
-	const maxNum = 400;
+	const maxNum = 300;
 
 	// const hpPresent = (hp * 100) / maxNum;
 	//TODO: need to change the stat bar with the value of the base stat in the pokeObj.
 	//      need to change the color & width. smaller then 50 reddish bigger then 50 yellow, bigger then 100 green.
 	return (
 		<div className={infoCss.pokeGeneralWrapper}>
-			<h2> pokemon Training stats</h2>
+			<h2> pokemon Base stats</h2>
 			<table className={infoCss.pokeGeneralData}>
 				{pokemonFullInfoObj.stats.map((stat, index) => {
 					let colorClass;
