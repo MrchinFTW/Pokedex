@@ -1,3 +1,7 @@
+img {
+	height: 90px;
+}
+
 .nav {
 	display: flex;
 	flex-direction: row;
@@ -5,10 +9,21 @@
 	background-color: rgb(241, 66, 66);
 	height: 90px;
 	justify-content: space-around;
+	align-items: center;
 }
 
-img {
-	height: 90px;
+.headerLink {
+	color: black;
+	text-decoration: none;
+	padding: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.384);
+	border-radius: 4px;
+	background-color: rgba(0, 0, 0, 0);
+	transition: background-color 1s;
+}
+.headerLink:hover {
+	background-color: rgba(177, 177, 177, 0.137);
+	transition: background-color 0.5s;
 }
 
 .searchType > a {

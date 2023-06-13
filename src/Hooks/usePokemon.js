@@ -49,7 +49,7 @@ export function usePokemon() {
 			})
 			.catch((err) => {
 				setError(true);
-				console.log(`error while fetching pokemon data. the error is: ${err}`);
+				console.error(`error while fetching pokemon data. the error is: ${err}`);
 			});
 		// fetchAllPokemon()
 		// 	.then((pokemon) => {
@@ -89,11 +89,14 @@ export function usePokemon() {
 	};
 
 	const searchPokemon = (searchingArr) => {
-		console.log('searching method running');
+		// console.log('searching method running');
 
 		let pokeTempFoundArr = [];
 		let pokeRetArr = [];
-		console.log(searchingArr);
+		// console.log(searchingArr);
+		function compareNumbers(a, b) {
+			return a.id - b.id;
+		}
 		for (let i = 0; i < searchingArr.length; i++) {
 			if (pokeRetArr.length > 0) {
 				pokeTempFoundArr = pokeRetArr;
@@ -104,8 +107,9 @@ export function usePokemon() {
 					// adding pokemon to the list from the full list
 					for (let a = 0; a < searchingArr[i].pokemonList.length; a++) {
 						for (let b = 0; b < pokemonNTU.length; b++) {
-							if (searchingArr[i].pokemonList[a].pokemon_species.name === pokemonNTU[b].name) {
+							if (searchingArr[i].pokemonList[a].name === pokemonNTU[b].name) {
 								pokeTempFoundArr.push(pokemonNTU[b]);
+								pokeTempFoundArr.sort(compareNumbers);
 								break;
 							}
 						}
@@ -160,8 +164,8 @@ export function usePokemon() {
 					break;
 			}
 		}
-		console.log(pokeTempFoundArr);
-		console.log(pokeRetArr);
+		// console.log(pokeTempFoundArr);
+		// console.log(pokeRetArr);
 
 		if (pokeTempFoundArr.length === 0 && pokeRetArr.length === 0) {
 			setPokemon(pokemonNTU);
@@ -177,7 +181,7 @@ export function usePokemon() {
 	};
 
 	const findPokemon = (pokemonObj) => {
-		console.log('find pokemon running');
+		// console.log('find pokemon running');
 		const { type, typeName } = pokemonObj;
 
 		const exist = pokemonSearchingArr.find((obj) => obj.type === type);
@@ -194,7 +198,7 @@ export function usePokemon() {
 				setPokemonSearchingArr(newPokeSearch);
 				searchPokemon(newPokeSearch);
 			} else {
-				console.log('delete from array');
+				// console.log('delete from array');
 				const newSearchingArr = deleteFromArr(pokemonSearchingArr, type);
 				setPokemonSearchingArr(newSearchingArr);
 				searchPokemon(newSearchingArr);
@@ -204,21 +208,16 @@ export function usePokemon() {
 
 	const findPokemonByName = (text) => {
 		text = text.toLowerCase();
-		console.log(text);
 		if (pokemonSearchingArr.length >= 1) {
-			console.log('with searching array');
-			let pokeArr = searchPokemon(pokemonSearchingArr);
-			console.log(pokeArr);
-			let x = pokeArr.filter((pk) => pk.name.includes(text));
-			console.log(x);
+			// console.log('with searching array');
+			let pokeArrFromSearching = searchPokemon(pokemonSearchingArr);
+			let filteredPokemonByName = pokeArrFromSearching.filter((pk) => pk.name.includes(text));
 
-			setPokemon(x);
+			setPokemon(filteredPokemonByName);
 		} else {
-			console.log('without searching array');
-
-			let x = pokemonNTU.filter((pk) => pk.name.includes(text));
-			console.log(x);
-			setPokemon(x);
+			// console.log('without searching array');
+			let filteredPokemonByName = pokemonNTU.filter((pk) => pk.name.includes(text));
+			setPokemon(filteredPokemonByName);
 		}
 	};
 
@@ -233,12 +232,12 @@ async function massiveFetch(urls) {
 		const arrayOfPromises = urls.map((url) =>
 			fetch(url)
 				.then((response) => response.json())
-				.catch((err) => console.log('the error is' + err))
+				.catch((err) => console.error('the error is' + err))
 		);
 		const dataArray = await Promise.all(arrayOfPromises);
 		return dataArray;
 	} catch (err) {
-		console.log('error from massiveFetch' + err);
+		console.error('error from massiveFetch' + err);
 	}
 }
 
@@ -274,7 +273,7 @@ export async function fetchAllPokemon() {
 		}
 		return pokemonArr;
 	} catch (err) {
-		console.log('error from fetchAllPokemon' + err);
+		console.error('error from fetchAllPokemon' + err);
 	}
 }
 
@@ -306,6 +305,6 @@ export async function fetchPokemonData(allPokemons) {
 		});
 		return allInfo;
 	} catch (err) {
-		console.log('error from fetchPokemonData:' + err);
+		console.error('error from fetchPokemonData:' + err);
 	}
 }

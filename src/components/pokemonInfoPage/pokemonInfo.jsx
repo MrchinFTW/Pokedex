@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate, useLocation } from 'react-router-dom';
 import { usePokemon } from '../../Hooks/usePokemon';
 import infoCss from './pokemonInfo.module.css';
 import PokemonData from './pokemonData';
@@ -23,6 +23,11 @@ const PokemonInfo = () => {
 		return <div>loading pokemon page</div>;
 	}
 
+	if (!pokemonFullInfoObj) {
+		let { pathname } = useLocation();
+		const falseName = pathname.slice(9);
+		return <Navigate to={'/error'} state={`no pokemon found with the name ${falseName}`} />;
+	}
 	return (
 		<>
 			<NavPrevNextPokemon currentPokemon={pokemonFullInfoObj.name} pokemonList={pokemon} />

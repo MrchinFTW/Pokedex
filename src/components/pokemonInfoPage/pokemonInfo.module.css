@@ -52,7 +52,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: space-around;
 }
 
 .pokeGeneralData {
@@ -69,6 +69,8 @@ body {
 
 .imgDivWrapper {
 	width: 50%;
+	display: flex;
+	justify-content: center;
 }
 .imgDiv {
 	padding: 0 15px;

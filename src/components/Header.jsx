@@ -8,8 +8,14 @@ const Header = () => {
 			<Link className={headerCss.imageDiv} to={'/'}>
 				<img src='/pokemon-logo.png' alt='asd' />
 			</Link>
-			<Link to={'/pokemon'}> Pokemon</Link>
-			<Link to={'/aaa'}> about</Link>
+			<Link to={'/pokemon'} className={headerCss.headerLink}>
+				{' '}
+				Pokemon
+			</Link>
+			<Link to={'/about'} className={headerCss.headerLink}>
+				{' '}
+				about
+			</Link>
 		</div>
 	);
 };

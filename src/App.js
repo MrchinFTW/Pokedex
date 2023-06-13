@@ -1,11 +1,11 @@
+import React from 'react';
 import Header from './components/Header';
 import appCss from './App.module.css';
-import PokemonWrapper from './components/pokemonBox/PokemonWrapper';
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PokemonInfo from './components/pokemonInfoPage/pokemonInfo';
-import ErrorPage from './components/ErrorPage';
+import ErrorPage from './components/error/ErrorPage';
 import Home from './components/Home';
+import About from './components/About';
 
 function App() {
 	return (
@@ -17,7 +17,9 @@ function App() {
 				<Route path='/pokemon'>
 					<Route path='/pokemon' element={<Home />} />
 					<Route path=':id' element={<PokemonInfo />} />
+					<Route path='*' element={<ErrorPage />} />
 				</Route>
+				<Route path='/about' element={<About />} />
 				<Route path='*' element={<ErrorPage />} />
 				{/* TODO: add error page when pokemon not found */}
 			</Routes>

@@ -25,14 +25,13 @@ async function fetchGenerationById(index) {
 	if (index === 0) {
 		return [];
 	}
-	console.log(index);
 	const url = `https://pokeapi.co/api/v2/generation/${index}/`;
 	const response = await fetch(url);
 	let data = await response.json();
-	const genRespone = await fetch(data.main_region.url);
-	data = await genRespone.json();
-	const regionRes = await fetch(data.pokedexes[0].url);
-	data = await regionRes.json();
+	// const genRespone = await fetch(data.main_region.url);
+	// data = await genRespone.json();
+	// const regionRes = await fetch(data.pokedexes[0].url);
+	// data = await regionRes.json();
 	return data;
 }
 
@@ -75,10 +74,9 @@ const SearchBar = () => {
 			case 'gen':
 				setSelectedGen(e.target.value);
 				index = genArr.findIndex((gen) => gen === e.target.value);
-				console.log(genArr);
 				const pokeArr = await fetchGenerationById(index + 1);
 				findPokemon({
-					pokemonList: pokeArr.pokemon_entries,
+					pokemonList: pokeArr.pokemon_species,
 					type: 'gen',
 					typeName: e.target.value,
 				});
