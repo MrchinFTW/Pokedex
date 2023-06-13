@@ -165,11 +165,14 @@ export function usePokemon() {
 
 		if (pokeTempFoundArr.length === 0 && pokeRetArr.length === 0) {
 			setPokemon(pokemonNTU);
+			return pokemonNTU;
 		} else if (pokeRetArr.length === 0 && pokeTempFoundArr !== 0) {
 			pokeRetArr = pokeTempFoundArr;
 			setPokemon(pokeRetArr);
+			return pokeRetArr;
 		} else {
 			setPokemon(pokeRetArr);
+			return pokeRetArr;
 		}
 	};
 
@@ -204,8 +207,9 @@ export function usePokemon() {
 		console.log(text);
 		if (pokemonSearchingArr.length >= 1) {
 			console.log('with searching array');
-			searchPokemon(pokemonSearchingArr);
-			let x = pokemon.filter((pk) => pk.name.includes(text));
+			let pokeArr = searchPokemon(pokemonSearchingArr);
+			console.log(pokeArr);
+			let x = pokeArr.filter((pk) => pk.name.includes(text));
 			console.log(x);
 
 			setPokemon(x);
