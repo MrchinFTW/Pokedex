@@ -9,18 +9,37 @@ import NavPrevNextPokemon from './NavPrevNextPokemon';
 import EvolutionChart from './EvolutionChart';
 import DmgChart from './DmgChart';
 
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 const PokemonInfo = () => {
 	const { pokemon, loading, error } = usePokemon();
 	const { id } = useParams();
 	const pokemonFullInfoObj = pokemon.find((pk) => pk.name === id);
-	// console.log(pokemonFullInfoObj);
+	console.log(pokemonFullInfoObj);
+	// const loading = true;
+	// let error, type, color, pokemon, pokemonFullInfoObj;
 
 	if (error) {
 		return <>error: {error}</>;
 	}
 
 	if (loading) {
-		return <div>loading pokemon page</div>;
+		let temp = window.innerHeight;
+		temp -= 160;
+		return (
+			<div style={{ margin: '13px 50px' }}>
+				<Skeleton height={'60px'} />
+				<div className={infoCss.skeletonFirst}>
+					<div className={infoCss.skeletonSec}>
+						<Skeleton height={temp} />
+					</div>
+					<div className={infoCss.skeletonSec}>
+						<Skeleton height={temp} />
+					</div>
+				</div>
+			</div>
+		);
 	}
 
 	if (!pokemonFullInfoObj) {

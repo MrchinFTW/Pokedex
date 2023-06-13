@@ -212,6 +212,17 @@ body {
 	text-align: center;
 }
 
+.skeletonFirst {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.skeletonSec {
+	width: 40%;
+
+	padding: 30px;
+}
+
 @media (max-width: 980px) {
 	.firstInfoSection {
 		margin: 15px 50px;

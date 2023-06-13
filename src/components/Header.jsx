@@ -5,8 +5,8 @@ import React from 'react';
 const Header = () => {
 	return (
 		<div className={headerCss.nav}>
-			<Link className={headerCss.imageDiv} to={'/'}>
-				<img src='/pokemon-logo.png' alt='asd' />
+			<Link className={headerCss.imageDiv} to={'/pokemon'}>
+				<img src='/pokemon-logo.png' alt='pokemon logo' />
 			</Link>
 			<Link to={'/pokemon'} className={headerCss.headerLink}>
 				{' '}

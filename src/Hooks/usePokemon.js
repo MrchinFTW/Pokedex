@@ -94,9 +94,7 @@ export function usePokemon() {
 		let pokeTempFoundArr = [];
 		let pokeRetArr = [];
 		// console.log(searchingArr);
-		function compareNumbers(a, b) {
-			return a.id - b.id;
-		}
+
 		for (let i = 0; i < searchingArr.length; i++) {
 			if (pokeRetArr.length > 0) {
 				pokeTempFoundArr = pokeRetArr;
@@ -109,7 +107,7 @@ export function usePokemon() {
 						for (let b = 0; b < pokemonNTU.length; b++) {
 							if (searchingArr[i].pokemonList[a].name === pokemonNTU[b].name) {
 								pokeTempFoundArr.push(pokemonNTU[b]);
-								pokeTempFoundArr.sort(compareNumbers);
+								pokeTempFoundArr.sort((a, b) => a.id - b.id);
 								break;
 							}
 						}
