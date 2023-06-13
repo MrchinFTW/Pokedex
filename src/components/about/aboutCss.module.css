@@ -1,0 +1,17 @@
+.links {
+	text-decoration: none;
+	color: black;
+	background-color: white;
+	transition: background-color 1s;
+	border-radius: 4px;
+	padding: 0 2px;
+}
+
+.links:hover {
+	background-color: aquamarine;
+	transition: background-color 1s;
+}
+
+.about {
+	margin: 30px 50px;
+}

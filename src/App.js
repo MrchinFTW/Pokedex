@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import PokemonInfo from './components/pokemonInfoPage/pokemonInfo';
 import ErrorPage from './components/error/ErrorPage';
 import Home from './components/Home';
-import About from './components/About';
+import About from './components/about/About';
 
 function App() {
 	return (

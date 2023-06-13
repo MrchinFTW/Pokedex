@@ -15,13 +15,13 @@ const NavPrevNextPokemon = ({ pokemonList, currentPokemon }) => {
 	if (currentPokemonIndex !== pokemonList.length - 1) {
 		nextPokemon = pokemonList[currentPokemonIndex + 1].name;
 	}
-	const arrowLeft = '<<';
-	const arrowRight = '>>';
+	const arrowLeft = '\u21e6';
+	const arrowRight = '\u21e8';
 
 	return (
 		<div className={pokeBarCss}>
 			{prevPokemon ? (
-				<Link to={`/pokemon/${prevPokemon}`}>
+				<Link to={`/pokemon/${prevPokemon}`} className={infoCss.prevNextBtn}>
 					{arrowLeft}
 					{prevPokemon}
 				</Link>
@@ -30,7 +30,7 @@ const NavPrevNextPokemon = ({ pokemonList, currentPokemon }) => {
 			)}
 
 			{nextPokemon ? (
-				<Link to={`/pokemon/${nextPokemon}`}>
+				<Link to={`/pokemon/${nextPokemon}`} className={infoCss.prevNextBtn}>
 					{nextPokemon}
 					{arrowRight}
 				</Link>

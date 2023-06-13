@@ -5,20 +5,20 @@ const PokemonLayout = ({ pk }) => {
 	return (
 		<div className={css.pokeCell}>
 			<div># {pk.id}</div>
-			<Link to={`/pokemon/${pk.name}`}>
+			<Link to={`/pokemon/${pk.name}`} className={css.pokeCellLink}>
 				<img src={pk.sprites.front_default} alt='' />
+				<div>{pk.name}</div>
+				<div className={css.pokeTypesWrapper}>
+					{pk.types.map((type, index) => {
+						let typeClass = `${css.pokeType} ${css[type.type.name]}`;
+						return (
+							<div key={index} className={typeClass}>
+								{type.type.name}
+							</div>
+						); //className={setColor(type.type.name)}
+					})}
+				</div>
 			</Link>
-			<div>{pk.name}</div>
-			<div className={css.pokeTypesWrapper}>
-				{pk.types.map((type, index) => {
-					let typeClass = `${css.pokeType} ${css[type.type.name]}`;
-					return (
-						<div key={index} className={typeClass}>
-							{type.type.name}
-						</div>
-					); //className={setColor(type.type.name)}
-				})}
-			</div>
 		</div>
 	);
 };

@@ -16,7 +16,7 @@ const PokemonInfo = () => {
 	const { pokemon, loading, error } = usePokemon();
 	const { id } = useParams();
 	const pokemonFullInfoObj = pokemon.find((pk) => pk.name === id);
-	console.log(pokemonFullInfoObj);
+	// console.log(pokemonFullInfoObj);
 	// const loading = true;
 	// let error, type, color, pokemon, pokemonFullInfoObj;
 

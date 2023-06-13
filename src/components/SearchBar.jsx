@@ -146,109 +146,125 @@ const SearchBar = () => {
 		});
 	}, []);
 
+	const capFirstLetter = (str) => {
+		const firstLetter = str.charAt(0).toUpperCase();
+		const restOfStr = str.slice(1);
+		return firstLetter + restOfStr;
+	};
+
 	return (
 		<div className={searchCss.searchBar}>
-			{/* material ui select for gen selet */}
+			<p>Pick your favorite Pokémon</p>
+			<div className={searchCss.searchSelectorsWrapper}>
+				{/* material ui select for gen selet */}
+				<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
+					<InputLabel id='demo-simple-select-filled-label'>Generation</InputLabel>
+					<Select
+						labelId='demo-simple-select-filled-label'
+						id='demo-simple-select-filled'
+						label='Gen'
+						name='gen'
+						value={selectedGen}
+						onChange={(e) => {
+							changeHandler(e);
+						}}
+					>
+						<MenuItem value={-1}>
+							<em>All</em>
+						</MenuItem>
+						{genArr.map((gen, index) => {
+							const parts = gen.split('-');
+							const generation = parts[1].toUpperCase();
+							const genName = `GEN-${generation}`;
+							return (
+								<MenuItem value={gen} key={index}>
+									{genName}
+								</MenuItem>
+							);
+						})}
+					</Select>
+				</FormControl>
 
-			<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
-				<InputLabel id='demo-simple-select-filled-label'>Generation</InputLabel>
-				<Select
-					labelId='demo-simple-select-filled-label'
-					id='demo-simple-select-filled'
-					label='Gen'
-					name='gen'
-					value={selectedGen}
-					onChange={(e) => {
-						changeHandler(e);
+				{/* material ui select for type selet */}
+
+				<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
+					<InputLabel id='demo-simple-select-filled-label'>Type</InputLabel>
+					<Select
+						labelId='demo-simple-select-filled-label'
+						id='demo-simple-select-filled'
+						label='Type'
+						name='type'
+						value={selectedType}
+						onChange={(e) => {
+							changeHandler(e);
+						}}
+					>
+						<MenuItem value={-1}>
+							<em>All</em>
+						</MenuItem>
+						{typeArr.map((type, index) => {
+							const typeName = capFirstLetter(type.name);
+							if (type.pokemon.length >= 1) {
+								return (
+									<MenuItem value={type.name} key={index}>
+										{typeName}
+									</MenuItem>
+								);
+							}
+						})}
+					</Select>
+				</FormControl>
+
+				{/* material ui select for color selet */}
+
+				<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
+					<InputLabel id='demo-simple-select-filled-label'>Color</InputLabel>
+					<Select
+						labelId='demo-simple-select-filled-label'
+						id='demo-simple-select-filled'
+						label='Color'
+						name='color'
+						value={selectedColor}
+						onChange={(e) => {
+							changeHandler(e);
+						}}
+					>
+						<MenuItem value={-1}>
+							<em>All</em>
+						</MenuItem>
+						{colorsArr.map((color, index) => {
+							const colorName = capFirstLetter(color.name);
+							return (
+								<MenuItem value={color.name} key={index}>
+									{colorName}
+								</MenuItem>
+							);
+						})}
+					</Select>
+				</FormControl>
+
+				<Box
+					component='form'
+					sx={{
+						'& > :not(style)': { m: 1, width: '25ch' },
+					}}
+					autoComplete='off'
+					onSubmit={(e) => {
+						e.preventDefault();
 					}}
 				>
-					<MenuItem value={-1}>
-						<em>All</em>
-					</MenuItem>
-					{genArr.map((gen, index) => {
-						return (
-							<MenuItem value={gen} key={index}>
-								{gen}
-							</MenuItem>
-						);
-					})}
-				</Select>
-			</FormControl>
+					<TextField
+						id='filled-basic'
+						label='Enter Name'
+						variant='filled'
+						name='text'
+						onChange={(e) => {
+							changeHandler(e);
+						}}
+					/>
+				</Box>
+			</div>
 
-			{/* material ui select for type selet */}
-
-			<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
-				<InputLabel id='demo-simple-select-filled-label'>Type</InputLabel>
-				<Select
-					labelId='demo-simple-select-filled-label'
-					id='demo-simple-select-filled'
-					label='Type'
-					name='type'
-					value={selectedType}
-					onChange={(e) => {
-						changeHandler(e);
-					}}
-				>
-					<MenuItem value={-1}>
-						<em>All</em>
-					</MenuItem>
-					{typeArr.map((type, index) => {
-						return (
-							<MenuItem value={type.name} key={index}>
-								{type.name}
-							</MenuItem>
-						);
-					})}
-				</Select>
-			</FormControl>
-
-			{/* material ui select for color selet */}
-
-			<FormControl variant='filled' sx={{ m: 1, minWidth: 120 }}>
-				<InputLabel id='demo-simple-select-filled-label'>Color</InputLabel>
-				<Select
-					labelId='demo-simple-select-filled-label'
-					id='demo-simple-select-filled'
-					label='Color'
-					name='color'
-					value={selectedColor}
-					onChange={(e) => {
-						changeHandler(e);
-					}}
-				>
-					<MenuItem value={-1}>
-						<em>All</em>
-					</MenuItem>
-					{colorsArr.map((color, index) => {
-						return (
-							<MenuItem value={color.name} key={index}>
-								{color.name}
-							</MenuItem>
-						);
-					})}
-				</Select>
-			</FormControl>
-
-			<Box
-				component='form'
-				sx={{
-					'& > :not(style)': { m: 1, width: '25ch' },
-				}}
-				autoComplete='off'
-				onSubmit={(e) => {
-					e.preventDefault();
-				}}
-			>
-				<TextField
-					id='filled-basic'
-					label='Enter Name'
-					variant='filled'
-					name='text'
-					onChange={(e) => {
-						changeHandler(e);
-					}}
-				/>
-			</Box>
 			{/* TODO: add a clear button */}
 		</div>
 	);

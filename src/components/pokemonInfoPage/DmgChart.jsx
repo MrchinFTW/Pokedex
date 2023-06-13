@@ -80,12 +80,10 @@ const DmgChart = ({ typesList }) => {
 	}
 	return (
 		<div className={infoCss.dmgChartSection}>
-			<h1>DamageChart</h1>
+			<h1>Damage Chart</h1>
 			<div className={infoCss.chartWrapper}>
 				<div className={infoCss.dmgToWrapper}>
-					<p>
-						The damage dealt <strong>to</strong> another pokemon types
-					</p>
+					<h2>Strengths</h2>
 					<div className={infoCss.dmgChart}>
 						{Object.entries(dmgToChartObj).map((dmgType, index) => {
 							let dmgNumberUni;
@@ -115,9 +113,7 @@ const DmgChart = ({ typesList }) => {
 					</div>
 				</div>
 				<div className={infoCss.dmgToWrapper}>
-					<p>
-						The damage dealt <strong>from</strong> another pokemon types
-					</p>
+					<h2>Weaknesses</h2>
 					<div className={infoCss.dmgChart}>
 						{Object.entries(dmgFromChartObj).map((dmgType, index) => {
 							let dmgNumberUni;
