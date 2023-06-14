@@ -1,5 +1,4 @@
 .links {
-	text-decoration: none;
 	color: black;
 	background-color: white;
 	transition: background-color 1s;
@@ -7,11 +6,47 @@
 	padding: 0 2px;
 }
 
-.links:hover {
-	background-color: aquamarine;
-	transition: background-color 1s;
-}
-
 .about {
 	margin: 30px 50px;
+}
+
+.textWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.textP {
+	margin: 0;
+	line-height: 1.5;
+}
+
+.imagesWrapper {
+	display: flex;
+	margin: 20px 0 0;
+}
+
+.imageWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.images {
+	width: 90px;
+	aspect-ratio: 3/2;
+	object-fit: contain;
+	margin: 0 20px;
+	transition: width 1.5s;
+}
+
+.imageTitleHidden {
+	/* visibility: hidden; */
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+.imageTitleShown {
+	/* visibility: visible; */
+	opacity: 1;
+	transition: opacity 1s;
 }
