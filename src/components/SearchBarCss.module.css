@@ -12,4 +12,10 @@
 .searchSelectorsWrapper {
 	display: flex;
 	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.MUIButton {
+	border: 1px solid rgba(0, 0, 0, 0.26);
+	color: rgba(0, 0, 0, 0.54);
 }

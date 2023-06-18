@@ -1,7 +1,9 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePokemon } from '../Hooks/usePokemon';
 import searchCss from './SearchBarCss.module.css';
+//meterial ui import color theme
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 //meterial ui imports select item
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,6 +12,9 @@ import Select from '@mui/material/Select';
 //meterial ui imports text field
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+//meterial ui imports button
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 async function getGenerations() {
 	let genArr = [];
@@ -66,7 +71,18 @@ const SearchBar = () => {
 	const [selectedColor, setSelectedColor] = useState(-1);
 	const [selectedType, setSelectedType] = useState(-1);
 	const [selectedGen, setSelectedGen] = useState(-1);
-	const { findPokemon, findPokemonByName } = usePokemon();
+	const [textValue, setTextValue] = useState('');
+	const textInput = useRef(null);
+	const { findPokemon, findPokemonByName, clearSearchArray } = usePokemon();
+
+	const theme = createTheme({
+		palette: {
+			neutral: {
+				main: '#8b8b8b',
+				contrastText: '#fff',
+			},
+		},
+	});
 
 	const changeHandler = async (e) => {
 		let index;
@@ -118,6 +134,7 @@ const SearchBar = () => {
 				break;
 
 			case 'text':
+				setTextValue(e.target.value);
 				findPokemonByName(e.target.value);
 				break;
 
@@ -258,14 +275,30 @@ const SearchBar = () => {
 						label='Enter Name'
 						variant='filled'
 						name='text'
+						value={textValue}
+						inputRef={textInput}
 						onChange={(e) => {
 							changeHandler(e);
 						}}
 					/>
 				</Box>
 			</div>
-
-			{/* TODO: add a clear button */}
+			<ThemeProvider theme={theme}>
+				<Button
+					color='neutral'
+					// className={searchCss.MUIButton}
+					onClick={() => {
+						setTextValue('');
+						setSelectedColor(-1);
+						setSelectedGen(-1);
+						setSelectedType(-1);
+						clearSearchArray();
+					}}
+					variant='outlined'
+				>
+					Clear
+				</Button>
+			</ThemeProvider>
 		</div>
 	);
 };

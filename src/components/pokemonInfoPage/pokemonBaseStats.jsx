@@ -5,8 +5,6 @@ const PokeomnBaseStats = ({ pokemonFullInfoObj }) => {
 	const maxNum = 300;
 
 	// const hpPresent = (hp * 100) / maxNum;
-	//TODO: need to change the stat bar with the value of the base stat in the pokeObj.
-	//      need to change the color & width. smaller then 50 reddish bigger then 50 yellow, bigger then 100 green.
 	return (
 		<div className={infoCss.pokeGeneralWrapper}>
 			<h2> pokemon Base stats</h2>

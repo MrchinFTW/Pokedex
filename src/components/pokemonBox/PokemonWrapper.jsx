@@ -4,7 +4,7 @@ import { usePokemon } from '../../Hooks/usePokemon';
 import React from 'react';
 
 const PokemonWrapper = () => {
-	const { pokemon } = usePokemon();
+	const { pokemon, clearSearchArray } = usePokemon();
 	if (!pokemon) {
 		return <div>loading...!</div>;
 	}
@@ -12,7 +12,7 @@ const PokemonWrapper = () => {
 		<>
 			<div className={wrapper.pokeWrapper}>
 				{pokemon.map((pk, index) => {
-					return <PokemonLayout pk={pk} key={index} />;
+					return <PokemonLayout pk={pk} key={index} clear={clearSearchArray} />;
 				})}
 			</div>
 		</>

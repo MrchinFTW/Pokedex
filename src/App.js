@@ -21,7 +21,6 @@ function App() {
 				</Route>
 				<Route path='/about' element={<About />} />
 				<Route path='*' element={<ErrorPage />} />
-				{/* TODO: add error page when pokemon not found */}
 			</Routes>
 		</div>
 	);

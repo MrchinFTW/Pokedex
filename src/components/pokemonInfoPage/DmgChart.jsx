@@ -101,8 +101,6 @@ const DmgChart = ({ typesList }) => {
 									dmgNumberUni = dmgType[1];
 									break;
 							}
-							//TODO: style the dmgChart types.
-							//TODO: make it for two types.
 							return (
 								<div key={index} className={infoCss.dmgType}>
 									<div className={dmgNameClass}>{shortName}</div>
@@ -131,8 +129,6 @@ const DmgChart = ({ typesList }) => {
 									dmgNumberUni = dmgType[1];
 									break;
 							}
-							//TODO: style the dmgChart types.
-							//TODO: make it for two types.
 							return (
 								<div key={index} className={infoCss.dmgType}>
 									<div className={dmgNameClass}>{shortName}</div>

@@ -55,7 +55,6 @@ const PokemonData = ({ pokemonFullInfoObj }) => {
 				<tr>
 					<td>Local pokedex number:</td>
 					<th>
-						{/* TODO: cancel duplicate numbers from the pokedex. */}
 						{pokemonFullInfoObj.pokedex_numbers.map((pokedex, index) => {
 							const dexName = pokedex.pokedex.name;
 							const dexNameNoMdlScor = dexName.replace(/-/g, ' ');

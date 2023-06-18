@@ -20,9 +20,9 @@ const PokemonInfo = () => {
 	// const loading = true;
 	// let error, type, color, pokemon, pokemonFullInfoObj;
 
-	if (error) {
-		return <>error: {error}</>;
-	}
+	// if (error) {
+	// 	return <>error: {error}</>;
+	// }
 
 	if (loading) {
 		let temp = window.innerHeight;

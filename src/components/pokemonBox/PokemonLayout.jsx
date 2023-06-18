@@ -1,11 +1,17 @@
 import css from './Pokemon.module.css';
 import { Link } from 'react-router-dom';
 import React from 'react';
-const PokemonLayout = ({ pk }) => {
+const PokemonLayout = ({ pk, clear }) => {
 	return (
 		<div className={css.pokeCell}>
 			<div># {pk.id}</div>
-			<Link to={`/pokemon/${pk.name}`} className={css.pokeCellLink}>
+			<Link
+				to={`/pokemon/${pk.name}`}
+				onClick={() => {
+					clear();
+				}}
+				className={css.pokeCellLink}
+			>
 				<img src={pk.sprites.front_default} alt='' />
 				<div>{pk.name}</div>
 				<div className={css.pokeTypesWrapper}>

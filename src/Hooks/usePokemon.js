@@ -1,47 +1,76 @@
 import React from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useMemo } from 'react';
 
-const pokemonContext = createContext();
+const PokemonContext = createContext();
 
 export function PokemonContaxtProvider({ children }) {
 	const [pokemon, setPokemon] = useState([]);
 	const [pokemonNTU, setPokemonNTU] = useState([]);
 	const [pokemonSearchingArr, setPokemonSearchingArr] = useState([]);
-
-	return (
-		<pokemonContext.Provider
-			value={{
-				pokemon,
-				setPokemon,
-				pokemonSearchingArr,
-				setPokemonSearchingArr,
-				pokemonNTU,
-				setPokemonNTU,
-			}}
-		>
-			{children}
-		</pokemonContext.Provider>
-	);
-}
-
-export function usePokemon() {
-	const {
-		pokemon,
-		setPokemon,
-		pokemonSearchingArr,
-		setPokemonSearchingArr,
-		pokemonNTU,
-		setPokemonNTU,
-	} = useContext(pokemonContext);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(false);
+	async function fetchPokemonData(allPokemons) {
+		try {
+			const pokemonSpeciesUrl = [];
+			const pokemonUrl = [];
+
+			allPokemons.map((pokemon) => {
+				pokemonSpeciesUrl.push(pokemon.pokemon.url);
+			});
+
+			const allInfo = massiveFetch(pokemonSpeciesUrl).then((pokemonSpeciesArr) => {
+				let mergedArray = allPokemons.reduce((acc, obj1) => {
+					const obj2 = pokemonSpeciesArr.find((obj2) => obj2.name === obj1.pokemon.name);
+					if (obj2) {
+						acc.push({
+							...obj1,
+							...obj2,
+						});
+					}
+					pokemonUrl.push(`https://pokeapi.co/api/v2/pokemon/${obj2.id}/`);
+					return acc;
+				}, []);
+				const fullPokemonInfo = massiveFetch(pokemonUrl).then((pokemonInfo) => {
+					return mergeArrays(pokemonInfo, pokemonSpeciesArr);
+				});
+				return fullPokemonInfo.then((data) => data);
+			});
+			return allInfo;
+		} catch (err) {
+			console.error('error from fetchPokemonData:' + err);
+		}
+	}
+
+	async function massiveFetch(urls) {
+		try {
+			if (!urls) {
+				return;
+			}
+			const arrayOfPromises = urls.map((url) =>
+				fetch(url)
+					.then((response) => response.json())
+					.catch((err) => console.error('the error is' + err))
+			);
+			const dataArray = await Promise.all(arrayOfPromises);
+			return dataArray;
+		} catch (err) {
+			console.error('error from massiveFetch' + err);
+		}
+	}
+
+	function mergeArrays(arr1, arr2) {
+		return arr1.reduce((acc, obj1) => {
+			const obj2 = arr2.find((obj2) => obj2.id === obj1.id);
+			if (obj2) {
+				acc.push({ ...obj1, ...obj2 });
+			}
+			return acc;
+		}, []);
+	}
 
 	useEffect(() => {
 		fetch('https://raw.githubusercontent.com/MrchinFTW/pokedex/main/public/pokeDexDB2.json')
-			.then((res) => {
-				setLoading(true);
-				return res.json();
-			})
+			.then((res) => res.json())
 			.then((data) => {
 				setLoading(false);
 				setPokemon(data);
@@ -51,15 +80,20 @@ export function usePokemon() {
 				setError(true);
 				console.error(`error while fetching pokemon data. the error is: ${err}`);
 			});
+		// ------------------------
 		// fetchAllPokemon()
 		// 	.then((pokemon) => {
 		// 		return fetchPokemonData(pokemon);
 		// 	})
 		// 	.then((data) => {
 		// 		setPokemonNTU(data);
+		// 		setLoading(false);
 		// 		return setPokemon(data);
 		// 	})
-		// 	.catch((err) => console.log('the error is' + err));
+		// 	.catch((err) => {
+		// 		setError(true);
+		// 		console.log('the error is' + err);
+		// 	});
 	}, []);
 
 	const sortAndAdd = (pokemonObj, searchingArr) => {
@@ -164,6 +198,7 @@ export function usePokemon() {
 		}
 		// console.log(pokeTempFoundArr);
 		// console.log(pokeRetArr);
+		console.log(pokemonSearchingArr);
 
 		if (pokeTempFoundArr.length === 0 && pokeRetArr.length === 0) {
 			setPokemon(pokemonNTU);
@@ -181,7 +216,6 @@ export function usePokemon() {
 	const findPokemon = (pokemonObj) => {
 		// console.log('find pokemon running');
 		const { type, typeName } = pokemonObj;
-
 		const exist = pokemonSearchingArr.find((obj) => obj.type === type);
 		if (!exist) {
 			const searchingArr = sortAndAdd(pokemonObj, pokemonSearchingArr);
@@ -210,7 +244,6 @@ export function usePokemon() {
 			// console.log('with searching array');
 			let pokeArrFromSearching = searchPokemon(pokemonSearchingArr);
 			let filteredPokemonByName = pokeArrFromSearching.filter((pk) => pk.name.includes(text));
-
 			setPokemon(filteredPokemonByName);
 		} else {
 			// console.log('without searching array');
@@ -219,37 +252,39 @@ export function usePokemon() {
 		}
 	};
 
-	return { pokemon, loading, error, findPokemon, findPokemonByName };
+	const clearSearchArray = () => {
+		setPokemon(pokemonNTU);
+		setPokemonSearchingArr([]);
+	};
+
+	const contextValue = {
+		pokemon,
+		loading,
+		error,
+		findPokemon,
+		findPokemonByName,
+		clearSearchArray,
+	};
+
+	return <PokemonContext.Provider value={contextValue}>{children}</PokemonContext.Provider>;
 }
 
-async function massiveFetch(urls) {
-	try {
-		if (!urls) {
-			return;
-		}
-		const arrayOfPromises = urls.map((url) =>
-			fetch(url)
-				.then((response) => response.json())
-				.catch((err) => console.error('the error is' + err))
-		);
-		const dataArray = await Promise.all(arrayOfPromises);
-		return dataArray;
-	} catch (err) {
-		console.error('error from massiveFetch' + err);
-	}
+export function usePokemon() {
+	const { pokemon, loading, error, findPokemon, findPokemonByName, clearSearchArray } = useContext(
+		PokemonContext
+	);
+
+	return {
+		pokemon,
+		loading,
+		error,
+		findPokemon,
+		findPokemonByName,
+		clearSearchArray,
+	};
 }
 
-function mergeArrays(arr1, arr2) {
-	return arr1.reduce((acc, obj1) => {
-		const obj2 = arr2.find((obj2) => obj2.id === obj1.id);
-		if (obj2) {
-			acc.push({ ...obj1, ...obj2 });
-		}
-		return acc;
-	}, []);
-}
-
-export async function fetchAllPokemon() {
+async function fetchAllPokemon() {
 	const pokemonArr = [];
 	try {
 		// First request to get total number of Pokemon
@@ -272,37 +307,5 @@ export async function fetchAllPokemon() {
 		return pokemonArr;
 	} catch (err) {
 		console.error('error from fetchAllPokemon' + err);
-	}
-}
-
-export async function fetchPokemonData(allPokemons) {
-	try {
-		const pokemonSpeciesUrl = [];
-		const pokemonUrl = [];
-
-		allPokemons.map((pokemon) => {
-			pokemonSpeciesUrl.push(pokemon.pokemon.url);
-		});
-
-		const allInfo = massiveFetch(pokemonSpeciesUrl).then((pokemonSpeciesArr) => {
-			let mergedArray = allPokemons.reduce((acc, obj1) => {
-				const obj2 = pokemonSpeciesArr.find((obj2) => obj2.name === obj1.pokemon.name);
-				if (obj2) {
-					acc.push({
-						...obj1,
-						...obj2,
-					});
-				}
-				pokemonUrl.push(`https://pokeapi.co/api/v2/pokemon/${obj2.id}/`);
-				return acc;
-			}, []);
-			const fullPokemonInfo = massiveFetch(pokemonUrl).then((pokemonInfo) => {
-				return mergeArrays(pokemonInfo, pokemonSpeciesArr);
-			});
-			return fullPokemonInfo.then((data) => data);
-		});
-		return allInfo;
-	} catch (err) {
-		console.error('error from fetchPokemonData:' + err);
 	}
 }
